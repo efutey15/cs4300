@@ -1,9 +1,6 @@
 #Testing and verifying output for task1.py
 import pytest
-
-#Contents of task1
-def say_hello():
-    print("Hello, World!")
+from task1 import say_hello
 
 #Test case
 def test_result(capsys):

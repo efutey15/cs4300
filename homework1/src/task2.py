@@ -26,11 +26,3 @@ def boolean_truth():
     color = "blue"
     boolResult = bool(color)
     return boolResult
-
-#Main
-
-#Printing Results
-print(f"The integer result is {IntMult()}")
-print(f"The float result is {FloatAdd()}")
-print(f"The string result is {StringConcat()}")
-print(f"The boolean result is {BooleanTruth()}")
