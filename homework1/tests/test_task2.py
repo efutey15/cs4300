@@ -1,0 +1,43 @@
+#Testing and verifying output for task2.py
+import pytest
+
+#Contents of task2
+#Integer Implementation
+def int_mult():
+    myInt = 2
+    myOtherInt = 3
+    intResult = myInt*myOtherInt
+    return intResult
+
+#Floating Point Implementation
+def float_add():
+    aFloat = 5.55
+    anotherFloat = 6.78
+    floatResult = aFloat + anotherFloat
+    return floatResult
+
+#String Implementation
+def string_concat():
+    str1 = "Hello"
+    str2 = "World!"
+    concatination = str1 + str2
+    return concatination
+
+#Boolean Implementation
+def boolean_truth():
+    color = "blue"
+    boolResult = bool(color)
+    return boolResult
+
+#Test cases
+def test_int():
+    assert int_mult() == 6
+
+def test_float():
+    assert float_add() == 12.33
+
+def test_string():
+    assert string_concat() == "HelloWorld!"
+
+def test_boolean():
+    assert boolean_truth() == True
