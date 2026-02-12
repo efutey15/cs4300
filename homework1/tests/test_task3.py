@@ -1,4 +1,4 @@
-#Testing and verifying output for task 3
+#Testing and verifying output for task3.py
 import pytest
 from task3 import check_sign, ten_prime, sum_to_hundred
 

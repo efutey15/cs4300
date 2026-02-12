@@ -1,4 +1,4 @@
-#Testing and verifying output for task 4
+#Testing and verifying output for task4.py
 import pytest
 from task4 import calculate_discount
 
