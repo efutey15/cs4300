@@ -4,13 +4,20 @@ from task2 import int_mult, float_add, string_concat, boolean_truth
 
 #Test cases
 def test_int():
-    assert int_mult() == 6
+    int1 = 2
+    int2 = 3
+    assert int_mult(int1, int2) == 6
 
 def test_float():
-    assert float_add() == 12.33
+    num1 = 5.55
+    num2 = 6.78
+    assert float_add(num1, num2) == 12.33
 
 def test_string():
-    assert string_concat() == "HelloWorld!"
+    str1 = "Hello"
+    str2 = "World!"
+    assert string_concat(str1, str2) == "HelloWorld!"
 
 def test_boolean():
-    assert boolean_truth() == True
+    color = "blue"
+    assert boolean_truth(color) == True

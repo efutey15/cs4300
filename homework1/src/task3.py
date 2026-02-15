@@ -1,8 +1,7 @@
 #Task 3: Implementing control structures
 
 #If Statement: positive, neagative, or zero
-def check_sign():
-    number = 6
+def check_sign(number):
     if number > 0:
         return "Positive"
     elif number < 0:

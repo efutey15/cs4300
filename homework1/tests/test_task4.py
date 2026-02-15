@@ -3,14 +3,18 @@ import pytest
 from task4 import calculate_discount
 
 #Test Cases for calculate_discount(price, discount)
+#price = int & discount = int
 def test_int_int():
     assert calculate_discount(10, 40) == 6.00
 
+#price = int & discount = float
 def test_int_float():
     assert calculate_discount(10, 0.5) == 5.00
 
+#price = float & discount = int
 def test_float_int():
     assert calculate_discount(10.00, 60) == 4.00
 
+#price = float & discount = float
 def test_float_float():
     assert calculate_discount(10.00, 0.3) == 7.00
