@@ -1,20 +1,56 @@
-{% extends 'bookings/base.html' %}
+{% extends "bookings/base.html" %}
+
 {% block title %}Book Seats{% endblock %}
 
 {% block content %}
-<h2 class="mb-4">Book Seat for "{{ movie.title }}"</h2>
 
-<div class="card p-4">
-    <form method="POST">
+<div class="container mt-4">
+
+    <h1 class="mb-4">Book Seats for {{ movie.title }}</h1>
+
+    <form method="post">
         {% csrf_token %}
 
+        <!-- User name input -->
         <div class="mb-3">
-            <label class="form-label">Select Seat</label>
-            {{ form.seat_number }}
+            <label class="form-label">Your Name</label>
+            <input type="text" name="user" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-success">Confirm Booking</button>
-        <a href="{% url 'movie_list' %}" class="btn btn-secondary">Cancel</a>
+        <h4 class="mb-3">Select a Seat</h4>
+
+        <div class="row">
+            {% for seat in seats %}
+                <div class="col-md-2 col-3 mb-3">
+
+                    {% if seat.bookingStatus %}
+                        <!-- Booked seat -->
+                        <button type="button"
+                                class="btn btn-secondary w-100"
+                                disabled>
+                            {{ seat.seat_number }}
+                        </button>
+                    {% else %}
+                        <!-- Available seat -->
+                        <button type="submit"
+                                name="seat_number"
+                                value="{{ seat.seat_number }}"
+                                class="btn btn-success w-100">
+                            {{ seat.seat_number }}
+                        </button>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+        </div>
+
     </form>
+
+    <div class="mt-4">
+        <a href="{% url 'movie_list' %}" class="btn btn-primary">Back to Movies</a>
+        <a href="{% url 'booking_history' %}" class="btn btn-info">View Booking History</a>
+    </div>
+
 </div>
+
 {% endblock %}

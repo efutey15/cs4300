@@ -4,6 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from datetime import date
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Movie, Seat, Booking
 from .serializers import MovieSerializer, SeatSerializer, BookingSerializer
@@ -17,14 +18,33 @@ def movie_list(request):
 
 def book_seat(request, movie_id):
 
-    """Function for displaying the book_seat template"""
+    """Function for displaying the book_list template and handling seat bookings"""
 
     movie = get_object_or_404(Movie, id=movie_id)
     seats = Seat.objects.all()
 
-    return render(request, 'bookings/seat_booking.html', {
-        'movie': movie,
-        'seats': seats
+    if request.method == "POST":
+        seat_number = request.POST.get("seat_number")
+        username = request.POST.get("user")
+
+        seat = get_object_or_404(Seat, seat_number=seat_number)
+
+        if not seat.booking_status:
+            seat.booking_status = True
+            seat.save()
+
+            Booking.objects.create(
+                movie=movie.title,
+                seat=seat.seat_number,
+                user=username,
+                booking_date=date.today()
+            )
+
+            return redirect("booking_history")
+
+    return render(request, "bookings/seat_booking.html", {
+        "movie": movie,
+        "seats": seats
     })
 
 def booking_history(request):
@@ -62,7 +82,7 @@ class SeatViewSet(viewsets.ModelViewSet):
         """
         Toggle the booking status of a seat.
 
-        This endpoint switches the seat's bookingStatus between True and False,
+        This endpoint switches the seat's booking_status between True and False,
         simulating seat selection and deselection during the booking process.
 
         Args:
@@ -74,12 +94,12 @@ class SeatViewSet(viewsets.ModelViewSet):
             updated booking status.
         """
         seat = self.get_object()
-        seat.bookingStatus = not seat.bookingStatus
+        seat.booking_status = not seat.booking_status
         seat.save()
 
         return Response({
-            "seatNumber": seat.seatNumber,
-            "bookingStatus": seat.bookingStatus
+            "seat_number": seat.seat_number,
+            "booking_status": seat.booking_status
         })
 
 
@@ -113,22 +133,22 @@ class BookingViewSet(viewsets.ModelViewSet):
         username = request.data.get('user')
 
         try:
-            seat = Seat.objects.get(seatNumber=seat_number)
+            seat = Seat.objects.get(seat_number=seat_number)
         except Seat.DoesNotExist:
             return Response({"error": "Seat not found"}, status=404)
 
-        if seat.bookingStatus:
+        if seat.booking_status:
             return Response({"error": "Seat already booked"}, status=400)
 
         # Mark seat as booked
-        seat.bookingStatus = True
+        seat.booking_status = True
         seat.save()
 
         booking = Booking.objects.create(
             movie=movie_title,
             seat=seat_number,
             user=username,
-            bookingDate=date.today()
+            booking_date=date.today()
         )
 
         serializer = self.get_serializer(booking)

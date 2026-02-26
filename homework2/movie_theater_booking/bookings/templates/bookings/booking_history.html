@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'bookings/base.html' %}
 {% block title %}Booking History{% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
             {% for booking in bookings %}
             <tr>
                 <td>{{ booking.movie }}</td>
-                <td>{{ booking.seat_number }}</td>
+                <td>{{ booking.seat }}</td>
                 <td>{{ booking.booking_date }}</td>
             </tr>
             {% empty %}
