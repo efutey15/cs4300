@@ -1,0 +1,20 @@
+{% extends 'bookings/base.html' %}
+{% block title %}Book <Seat>% endblock %</Seat>
+
+{% block content %}
+<h2 class="mb-4">Book Seat for "{{ movie.title }}"</h2>
+
+<div class="card p-4">
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Select Seat</label>
+            {{ form.seat_number }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Confirm Booking</button>
+        <a href="{% url 'movie_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
