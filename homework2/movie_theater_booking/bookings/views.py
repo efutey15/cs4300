@@ -8,6 +8,34 @@ from datetime import date
 from .models import Movie, Seat, Booking
 from .serializers import MovieSerializer, SeatSerializer, BookingSerializer
 
+def movie_list(request):
+
+    """Function for displaying the movie_list template"""
+
+    movies = Movie.objects.all()
+    return render(request, 'bookings/movie_list.html', {'movies': movies})
+
+def book_seat(request, movie_id):
+
+    """Function for displaying the book_seat template"""
+
+    movie = get_object_or_404(Movie, id=movie_id)
+    seats = Seat.objects.all()
+
+    return render(request, 'bookings/seat_booking.html', {
+        'movie': movie,
+        'seats': seats
+    })
+
+def booking_history(request):
+
+    """Function for displaying the booking_history template"""
+
+    bookings = Booking.objects.all()
+
+    return render(request, 'bookings/booking_history.html', {
+        'bookings': bookings
+    })
 
 class MovieViewSet(viewsets.ModelViewSet):
     """
