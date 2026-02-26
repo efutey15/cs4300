@@ -10,26 +10,28 @@ class ModelTests(TestCase):
     def setUp(self):
         self.movie = Movie.objects.create(
             title="Test Movie",
-            release_date=date.today()
+            description="This is a Test!",
+            release_date=date.today(),
+            duration=100
         )
 
         self.seat = Seat.objects.create(
-            seatNumber=1,
-            bookingStatus=False
+            seat_number=1,
+            booking_status=False
         )
     
     def test_movie_creation(self):
         self.assertEqual(self.movie.title, "Test Movie")
     
     def test_seat_default_status(self):
-        self.assertFalse(self.seat.bookingStatus)
+        self.assertFalse(self.seat.booking_status)
     
     def test_booking_creation(self):
         booking = Booking.objects.create(
             movie="Test Movie",
             seat=1,
             user="evan",
-            bookingDate=date.today()
+            booking_date=date.today()
         )
 
         self.assertEqual(booking.user, "evan")
@@ -41,12 +43,14 @@ class APITests(APITestCase):
     def setUp(self):
         self.movie = Movie.objects.create(
             title="API Movie",
-            release_date=date.today()
+            description="API Movie Test",
+            release_date=date.today(),
+            duration=100
         )
 
         self.seat = Seat.objects.create(
             seat_number=10,
-            bookingStatus=False
+            booking_status=False
         )
     
     def test_get_movies_list(self):
@@ -70,7 +74,7 @@ class APITests(APITestCase):
         response = self.client.post(f"/api/seats/{self.seat.id}/toggle_booking/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.seat.refresh_from_db()
-        self.assertTrue(self.seat.bookingStatus)
+        self.assertTrue(self.seat.booking_status)
     
     def test_create_booking_success(self):
         data = {
@@ -83,7 +87,7 @@ class APITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         self.seat.refresh_from_db()
-        self.assertTrue(self.seat.bookingStatus)
+        self.assertTrue(self.seat.booking_status)
     
     def test_create_booking_invalid_seat(self):
         data = {
@@ -96,7 +100,7 @@ class APITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
     
     def test_create_booking_already_booked(self):
-        self.seat.bookingStatus = True
+        self.seat.booking_status = True
         self.seat.save()
 
         data = {
@@ -113,7 +117,7 @@ class APITests(APITestCase):
             movie="API Movie",
             seat=10,
             user="evan",
-            bookingDate=date.today()
+            booking_date=date.today()
         )
 
         response = self.client.get("/api/bookings/history/?user=evan")
