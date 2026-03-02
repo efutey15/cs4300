@@ -54,14 +54,16 @@ class APITests(APITestCase):
         )
     
     def test_get_movies_list(self):
-        response = self.client.get("/api/movies")
+        response = self.client.get("/api/movies/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.data, list)
     
     def test_create_movie(self):
         data = {
             "title": "New Movie",
-            "release_date": str(date.today())
+            "description" : "An exciting new Movie!",
+            "release_date": str(date.today()),
+            "duration" : 120
         }
         response = self.client.post("/api/movies/", data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
