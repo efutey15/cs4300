@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('movie', models.CharField(max_length=30)),
                 ('seat', models.CharField(max_length=5)),
                 ('user', models.CharField(max_length=30)),
-                ('booking_date', models.DateField()),
+                ('bookingDate', models.DateField()),
             ],
         ),
         migrations.CreateModel(
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
                 ('description', models.TextField(blank=True)),
-                ('release_date', models.DateField()),
+                ('releaseDate', models.DateField()),
                 ('duration', models.PositiveIntegerField()),
             ],
         ),
@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
             name='Seat',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('seat_number', models.CharField(max_length=5)),
-                ('booking_status', models.BooleanField()),
+                ('seatNumber', models.CharField(max_length=5)),
+                ('bookingStatus', models.BooleanField()),
             ],
         ),
     ]
