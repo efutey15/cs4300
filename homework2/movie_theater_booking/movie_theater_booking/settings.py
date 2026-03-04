@@ -22,12 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i@$m@k#p5ixbckbhqtqcx&u9#b10e21v)xc$e-n_r5h@4*wwa8'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv("ALLOWED_HOSTS", "").split(",")
+    if host.strip()
+]
 
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()
@@ -86,10 +90,7 @@ WSGI_APPLICATION = 'movie_theater_booking.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://mysite:LfjRqWskxz7eMl8ssBm8YtaWZWoX9Syx@dpg-d6jk2hh5pdvs73bd8bb0-a.oregon-postgres.render.com/mysite_wtmx',
-        conn_max_age=600
-    )
+    'default': dj_database_url.config(conn_max_age=600)
 }
 
 
