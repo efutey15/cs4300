@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'movie_theater_booking.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://bookings_sqldatabase_user:az0He7gF7mat43NRjrwFKkCSiFHpxR9m@dpg-d6jjjbp5pdvs73eelr3g-a/bookings_sqldatabase',
+        default='postgresql://mysite:LfjRqWskxz7eMl8ssBm8YtaWZWoX9Syx@dpg-d6jk2hh5pdvs73bd8bb0-a.oregon-postgres.render.com/mysite_wtmx',
         conn_max_age=600
     )
 }
