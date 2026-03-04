@@ -7,4 +7,4 @@ python manage.py collectstatic --no-input
 
 python manage.py migrate
 
-echo "from django.contrib.auth.models import User; User.objects.filter(username='efutey').exists() or User.objects.create_superuser('efutey', 'admin@example.com', 'PenwinPenguin1')" | python manage.py shell
+echo "from django.contrib.auth.models import User; User.objects.filter(username='efutey').exists() or User.objects.create_superuser('efutey', 'admin@example.com', 'SensativeTurtle34')" | python manage.py shell
