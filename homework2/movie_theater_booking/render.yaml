@@ -9,6 +9,7 @@ services:
     plan: free
     name: mysite
     runtime: python
+    rootDir: homework2/movie_theater_booking
     buildCommand: './build.sh'
     startCommand: 'gunicorn movie_theater_booking.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
