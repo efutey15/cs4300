@@ -12,8 +12,6 @@ services:
     rootDir: homework2/movie_theater_booking
     buildCommand: './build.sh'
     startCommand: 'gunicorn movie_theater_booking.asgi:application -k uvicorn.workers.UvicornWorker'
-    env:
-      PYTHON_VERSION: "3.11"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
